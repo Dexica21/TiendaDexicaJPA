@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/Catalogo.css">
+    <script src="/Js/jquery-3.7.0.js"></script>
+    
+      
+    <script>
+    $(document).ready(function(){
+        $("#ButtonFinalizarCompra").click(function(){
+        $("#ButtonFinalizarCompra").css({
+            "background-color": "black",
+            "border": "3px solid #0066ff"
+            });
+        });
+        
+    });
+    </script>
+    
+    
+    
+</head>
+<body>
+	<header>
+	
+        <section th:replace=BarraNavegacion::section></section>
+    </header>
+
+    <div class="ContainerPrincipal">
+        <div class="Categorias">
+            <h7> Filtrar Por:</h7>
+        <div id="modelo-container">
+            <h6 style="margin-top: 20px; margin-left:20px;"> Modelo:</h6>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="modelo-urbano" value="urbano" onclick="filtrarProductos()">
+                <label class="form-check-label" for="urbano" style="width: 50px;" id="Urbano">Urbano</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="modelo-sport" value="sport" onclick="filtrarProductos()">
+                <label class="form-check-label" for="inlineCheckbox2" style="width: 50px;" id="Sport">Sport</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="modelo-dark" value="dark" onclick="filtrarProductos()">
+                <label class="form-check-label" for="inlineCheckbox3" style="width: 50px;" id="Dark">Dark</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="modelo-retro" value="retro" onclick="filtrarProductos()">
+                <label class="form-check-label" for="inlineCheckbox4" style="width: 50px;" id="Retro">Retro</label>
+            </div>
+        </div>
+        
+            <div id="color-container">
+                <h6 style="margin-top: 20px; margin-left:20px;"> Colores:</h6>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="color-rojo" value="rojo" onclick="filtrarProductos()">
+                <label class="form-check-label" for="rojo" style="width: 50px;" id="rojo">Rojo</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="color-azul" value="Azul" onclick="filtrarProductos()">
+                <label class="form-check-label" for="inlineCheckbox6" style="width: 50px;" id="Azul">Azul</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="color-negro" value="Negro" onclick="filtrarProductos()">
+                <label class="form-check-label" for="inlineCheckbox7" style="width: 50px;" id="Negro">Negro</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="color-plomo" value="Plomo" onclick="filtrarProductos()">
+                <label class="form-check-label" for="inlineCheckbox7" style="width: 50px;" id="Plomo">Plomo</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="color-blanco" value="Blanco" onclick="filtrarProductos()">
+                <label class="form-check-label" for="color-blanco" style="width: 50px;" id="Blanco">Blanco</label>
+            </div>
+            </div>
+            
+        </div>
+    
+        <div class="ContainerImage">
+            <d class="row row-cols-1 row-cols-md-5 g-1">
+                <div class="col h-100 card-item" data-modelo="retro" data-color="Blanco">
+                    <div class="card text-center h-100">
+                        <img src='/Imagenes/Viviri.jpg' class="img-thumbnail" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Bividi Dexica</h5>
+                            <a href="/Catalogo/Vividi" class="btn btn-primary">Ver Prenda</a>
+                            <a href="#"class="add-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                            <h3 class="card-Precio">S/.25</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col h-100 card-item" data-modelo="urbano" data-color="Azul">
+                    <div class="card text-center h-100">
+                        <img src='/imag/strAzul.png' class="img-thumbnail" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Letra SR Fantama Blue</h5>
+                            <a href="/Catalogo/index" class="btn btn-primary">Ver Prenda</a>
+                            <a href="#"class="add-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                            <h3 class="card-Precio">S/.50</h3>
+                    </div>
+                </div>
+                </div>
+                <div class="col h-100 card-item" data-modelo="urbano" data-color="Negro">
+                    <div class="card text-center h-100">
+                        <img src='/imag/universe.png' class="img-thumbnail " alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Universe Planet</h5>
+                            <a href="/Catalogo/Universe" class="btn btn-primary">Ver Prenda</a>
+                            <a href="#"class="add-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                            <h3 class="card-Precio">S/.40</h3>
+                    </div>
+                </div>
+                </div>
+                <div class="col h-100 card-item" data-modelo="urbano" data-color="Negro">
+                    <div class="card text-center h-100">
+                        <img src='/imag/strNegro.png' class="img-thumbnail" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">SR Fantama Black</h5>
+                            <a href="/Catalogo/index" class="btn btn-primary">Ver Prenda</a>
+                            <a href="#"class="add-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                            <h3 class="card-Precio">S/.50</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col h-100 card-item" data-modelo="urbano" data-color="Negro">
+                    <div class="card text-center h-100">
+                        <img src='/imag/angelnuevo.png' class="img-thumbnail" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Fly</h5>
+                            <a href="/Catalogo/Fly" class="btn btn-primary">Ver Prenda</a>
+                            <a href="#"class="add-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                            <h3 class="card-Precio">S/.53</h3>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col h-100 card-item" data-modelo="urbano" data-color="Plomo">
+                    <div class="card text-center h-100">
+                        <img src='/imag/strPlomo.png' class="img-thumbnail" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">SR Fantama Plomo</h5>
+                            <a href="/Catalogo/index" class="btn btn-primary">Ver Prenda</a>
+                            <a href="#"class="add-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                            <h3 class="card-Precio">S/.50</h3>
+                    </div>
+                </div>
+                </div>
+                <div class="col h-100 card-item" data-modelo="dark" data-color="Negro">
+                    <div class="card text-center h-100">
+                        <img src='/imag/tayDaYNegro.jpg' class="img-thumbnail " alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">TayDay style</h5>
+                            <a href="/Catalogo/TayDay" class="btn btn-primary">Ver Prenda</a>
+                            <a href="#"class="add-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                            <h3 class="card-Precio">S/.67</h3>
+                    </div>
+                </div>
+                </div>
+                <div class="col h-100 card-item"  data-modelo="urbano" data-color="Negro">
+                    <div class="card text-center h-100">
+                        <img src='/imag/wishStop.jpg' class="img-thumbnail" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Wish Stop</h5>
+                            <a href="/Catalogo/WishStop" class="btn btn-primary">Ver Prenda</a>
+                            <a href="#"class="add-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                            <h3 class="card-Precio">S/.70</h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="col h-100 card-item" data-modelo="sport" data-color="Plomo">
+                    <div class="card text-center h-100">
+                        <img src='/imag/deportivo1.jpg' class="img-thumbnail" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Deportivo Basico</h5>
+                            <a href="/Catalogo/DeportivoBasico" class="btn btn-primary">Ver Prenda</a>
+                            <a href="#" class="add-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                            <h3 class="card-Precio">S/.22</h3>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col h-100 card-item" data-modelo="sport" data-color="Plomo">
+                    <div class="card text-center h-100">
+                        <img src='/imag/deportivo2.jpg' class="img-thumbnail" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">Lineas Laterales</h5>
+                            <a href="/Catalogo/Deportivo" class="btn btn-primary">Ver Prenda</a>
+                            <a href="#" class="add-cart"><i class="fa-solid fa-cart-shopping"></i></a>
+                            <h3 class="card-Precio">S/.35</h3>
+                        </div>
+                    </div>
+                </div>        
+            </d>
+        </div>
+    </div>
+    
+    
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center">
+            <li class="page-item ">
+                <a class="page-link">Anterior</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#">Siguiente</a>
+            </li>
+        </ul>
+    </nav>
+    
+    <div class="VentanaFlotante" id="VentanaFlotante">
+        <h1>Carrito de compras</h1>
+        <table class="table table-bordered">
+            <tr>
+                <td></td>
+                <td>Producto<p></p></td>
+                <td class="itemPrecio"></td>
+                <td>Cantidad<input class="inputcantidad" type="number" min="0" value="0" required style="display: none;"></td>
+                <td></td>
+            </tr>
+        </table>
+        <div class="preciocar">
+            <p>Total</p>
+            <p>S/.0</p>
+        </div>
+        <div>
+            <button id="ButtonFinalizarCompra" class="btn-Finalizar">Finalizar Compra</button>
+        </div>
+        <div class="ModalVenta" id="Modal">
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Finalizar Compra</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                        <p>Seguro que quiere acabar su compra?</p>
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Seguir Comprando</button>
+                        <button type="button" class="btn btn-danger">Proceder compra</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="/Js/Catalogo.js"/></script>
+</html>

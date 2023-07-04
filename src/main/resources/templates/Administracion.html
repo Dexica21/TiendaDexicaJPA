@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Panel de Administración</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <style>
+        
+    body {
+        padding-top: 56px;
+        }
+
+    .sidebar {
+        position: fixed;
+        top: 56px;
+        left: 0;
+        bottom: 0;
+        width: 200px;
+        padding: 20px;
+        background-color: #0f76dd;
+        }
+    .nav-item a{
+        color: white;
+    }
+
+    .content {
+        margin-left: 200px;
+        padding: 20px;
+        }
+    </style>
+    
+<script>
+$(document).ready(function(){
+    $(document).on('click', '.btn-warning', function(){
+        var idUsuario = "";
+        var nombreUsuario = "";
+        var correo = "";
+        var pass = "";
+        var fechaRegistro = "";
+        var activo = "";
+        var i = 0;
+
+        $(this).parents("tr").find("td").find("span").each(function() {
+            if (i == 0) {
+                idUsuario = $(this).html();
+            } else if (i == 1) {
+                nombreUsuario = $(this).html();
+            } else if (i == 2) {
+                correo = $(this).html();
+            } else if (i == 3) {
+                pass = $(this).html();
+            } else if (i == 4) {
+                fechaRegistro = $(this).html();
+            } else if (i == 5) {
+                activo = $(this).html();
+            }
+            i++;
+        });
+
+        $('#form-user').find('[name="frm-edit-nombreusuario"]').val(nombreUsuario);
+        $('#form-user').find('[name="frm-edit-correo"]').val(correo);
+        $('#form-user').find('[name="frm-edit-pass"]').val(pass);
+        
+         if (activo === "true") {
+            $('#form-user').find('[name="frm-edit-estado"]').val('true');
+        } else {
+            $('#form-user').find('[name="frm-edit-estado"]').val('false');
+        }
+        
+        $('#form-user').find('[name="frm-edit-idUsuario"]').val(idUsuario);
+        $('#form-user').find('[name="frm-edit-fechaRegistro"]').val(fechaRegistro);
+        $('#ModalUsu').modal('show');
+    });
+
+
+
+
+
+
+    $('#btn-actualizarUsuario').click(function() {
+        var idUsuario = $('#form-user').find('[name="frm-edit-idUsuario"]').val();
+        var pass = $('#form-user').find('[name="frm-edit-pass"]').val();
+        var correo = $('#form-user').find('[name="frm-edit-correo"]').val();
+        var activo = $('#form-user').find('[name="frm-edit-estado"]').val();
+        $.ajax({
+            type: 'POST',
+            url: '/modificar',
+            data: {
+                idUsuario: idUsuario,
+                pass: pass,
+                correo: correo,
+                Activo: activo,
+            },
+            success: function(text) {
+                $('#table-striped').load(location.href + ' #table-striped');
+            },
+            error: function(jqXHR) {
+                $(document.body).text('Error: ' + jqXHR.status);
+            }
+        });
+    });
+    
+    
+    
+ });
+</script>
+    
+    
+    
+</head>
+<body>
+    <!-- Barra de navegación -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+        <a class="navbar-brand" href="#">Panel de Administración</a>
+        <!-- Botón para mostrar/ocultar la barra lateral en dispositivos pequeños -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Enlaces de navegación -->
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Inicio</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Usuarios</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Login">Cerrar Sesión</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <!-- Barra lateral -->
+    <div class="sidebar">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link active" th:href="@{/findAll}" >Lista de clientes</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Productos</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"></a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Contenido principal -->
+<div class="content">
+    <h1>Bienvenido al Panel de Administración</h1>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre de usuario</th>
+                <th>Correo</th>
+                <th>Contraseña</th>
+                <th>Estado</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:if="${usuarios.empty}">
+                <td colspan="5">No hay registros</td>
+            </tr>
+            <tr th:each="usuario : ${usuarios}">
+                <td><span th:text="${usuario.idUsuario}"></span></td>
+                <td><span th:text="${usuario.nombre_Usuario}"></span></td>
+                <td><span th:text="${usuario.correo}"></span></td>
+                <td><span th:text="${usuario.pass}"></span></td>
+                <td><span th:text="${usuario.activo}"></span></td>
+                <td>
+                <button type="button" class="btn btn-warning">Editar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal fade" id="ModalUsu" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Configuracion de usuario</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form id="form-user">
+      <div class="modal-body">
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Nombre de usuario:</label>
+            <input type="text"  class="form-control" name="frm-edit-nombreusuario">
+            <input type="hidden" name="frm-edit-idUsuario">
+            <input type="hidden" name="frm-edit-fechaRegistro">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Correo:</label>
+            <input type="text"  class="form-control" name="frm-edit-correo">
+          </div>
+          <div class="mb-3">
+            <label for="recipient-name" class="col-form-label">Contraseña:</label>
+            <input type="text"  class="form-control" name="frm-edit-pass">
+          </div>
+          <div class="mb-3">
+  			<label for="recipient-name" class="col-form-label">Estado:</label>
+    		<select class="form-control" name="frm-edit-estado">
+        		<option value="true" th:selected="${usuario.activo}">Activo</option>
+        		<option value="false" th:selected="${!usuario.activo}">Inactivo</option>
+    		</select>
+</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button id="btn-actualizarUsuario" type="submit" class="btn btn-primary">Guardar Cambios</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
